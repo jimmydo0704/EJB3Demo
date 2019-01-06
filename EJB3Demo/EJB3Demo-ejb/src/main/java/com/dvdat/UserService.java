@@ -5,8 +5,8 @@
  */
 package com.dvdat;
 
-import com.dvdat.db.User;
-import com.dvdat.db.UserFacade;
+//import com.dvdat.db.User;
+//import com.dvdat.db.UserFacade;
 import com.dvdat.message.DemoMessagePublisher;
 import com.dvdat.message.DemoMessageSender;
 import java.util.logging.Level;
