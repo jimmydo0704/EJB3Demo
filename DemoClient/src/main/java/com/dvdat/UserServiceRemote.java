@@ -5,6 +5,8 @@
  */
 package com.dvdat;
 
+import com.dvdat.dto.UserDTO;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -13,6 +15,6 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface UserServiceRemote {
-    String findUser(String name);
-    boolean createUser(String firstname, String lastname);
+    List<UserDTO> findUser(String name);
+    boolean createUser(String name);
 }

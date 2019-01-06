@@ -5,9 +5,11 @@
  */
 package com.dvdat.db;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,4 +30,10 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         super(User.class);
     }
     
+    @Override
+    public List<User> findUserByName(String name) {
+        TypedQuery<User> query = em.createNamedQuery("User.findByName", User.class);
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
 }

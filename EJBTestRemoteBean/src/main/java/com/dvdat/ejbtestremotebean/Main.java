@@ -7,6 +7,8 @@ package com.dvdat.ejbtestremotebean;
 
 import com.dvdat.AccessRightServiceRemote;
 import com.dvdat.UserServiceRemote;
+import com.dvdat.dto.UserDTO;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +27,13 @@ public class Main {
         Main app = new Main();
         
         UserServiceRemote userService = (UserServiceRemote) app.getUserServiceRemoteBean("UserService", false);
-        System.out.printf(">>>> %s\n", userService.findUser("Dat Do"));
-        userService.createUser("Phung", "Nguyen");
+        userService.createUser("Phung Nguyen");
+        userService.createUser("Dat Do");
+        
+        List<UserDTO> users = userService.findUser("Phung Nguyen");
+        users.forEach((user) -> {
+            System.out.println(">>>> " + user);
+        });
         
         AccessRightServiceRemote accesRightService = (AccessRightServiceRemote) app.getUserServiceRemoteBean("AccessRightService", true);
         System.out.printf(">>>> %s\n", accesRightService.findAccessRight("Dat"));

@@ -5,6 +5,7 @@
  */
 package com.dvdat;
 
+import javax.annotation.PreDestroy;
 import javax.ejb.Stateful;
 
 /**
@@ -18,5 +19,16 @@ public class AccessRightService implements AccessRightServiceRemote, AccessRight
     public String findAccessRight(String user) {
         System.out.println(">>> Finding access right for user = " + user);
         return "Found access right for user = " + user;
+    }
+
+    @Override
+    public boolean createAccessRight(String user) {
+        System.out.println(">>>> Create access right for user = " + user);
+        return true;
+    }
+    
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Destroying");
     }
 }

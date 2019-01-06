@@ -6,10 +6,13 @@
 package com.dvdat;
 
 import com.dvdat.db.User;
-import com.dvdat.db.UserFacade;
 import com.dvdat.db.UserFacadeLocal;
+import com.dvdat.dto.UserDTO;
 import com.dvdat.message.DemoMessagePublisher;
 import com.dvdat.message.DemoMessageSender;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -36,21 +39,35 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
     private UserFacadeLocal userFacade;
     
     @Override
-    public String findUser(String name) {
+    public List<UserDTO> findUser(String name) {
         System.out.println(">>> Finding user = " + name);
-        return "Found user = " + name;
+                    
+        List<User> allUsers = userFacade.findUserByName(name);
+        if (allUsers == null || allUsers.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
+        
+        List<UserDTO> users = new ArrayList<>();
+        for(int i = 0; i < allUsers.size(); i++) {
+            users.add(new UserDTO(allUsers.get(i).getId(), allUsers.get(i).getName()));
+        }
+        
+        return users;
     }
 
     @Override
-    public boolean createUser(String firstname, String lastname) {
-        System.out.println(">>> create user with firstname = " + firstname + ", lastname=" + lastname);
-        roleService.createRole(firstname, "role 1");
+    public boolean createUser(String name) {
+        System.out.println(">>> Creating user with name = " + name);
+        System.out.println(this);
         try {
             User user = new User();
-            user.setName(firstname + " " + lastname);
+            user.setName(name);
             userFacade.create(user);
-            demoPublisher.publish("Created user = " + firstname);
-            messageSender.send("Created user = " + firstname);
+
+            roleService.createRole(name, "role 1");
+
+            demoPublisher.publish(">>>> Created user = " + name);
+            messageSender.send(">>>> Created user = " + name);
         } catch (JMSException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }

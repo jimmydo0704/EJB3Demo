@@ -5,6 +5,7 @@
  */
 package com.dvdat;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -13,15 +14,19 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class RoleService implements RoleServiceRemote, RoleServiceLocal {
+    
+    @EJB
+    private AccessRightServiceLocal accessRightService;
 
     @Override
     public String findRole(String user) {
-        return "Found role for user = " + user;
+        return ">>>> Found role for user = " + user;
     }
 
     @Override
     public boolean createRole(String user, String role) {
-        System.out.println("Role = " + role + " has created for user = " + user);
+        System.out.println(">>>> Role = " + role + " has created for user = " + user);
+        accessRightService.createAccessRight(user);
         return true;
     }
 }
