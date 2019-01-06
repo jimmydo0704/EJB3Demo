@@ -5,8 +5,9 @@
  */
 package com.dvdat;
 
-//import com.dvdat.db.User;
-//import com.dvdat.db.UserFacade;
+import com.dvdat.db.User;
+import com.dvdat.db.UserFacade;
+import com.dvdat.db.UserFacadeLocal;
 import com.dvdat.message.DemoMessagePublisher;
 import com.dvdat.message.DemoMessageSender;
 import java.util.logging.Level;
@@ -31,8 +32,8 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
     @EJB
     private DemoMessageSender messageSender;
     
-//    @EJB
-//    private UserFacade userFacade;
+    @EJB
+    private UserFacadeLocal userFacade;
     
     @Override
     public String findUser(String name) {
@@ -45,9 +46,9 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
         System.out.println(">>> create user with firstname = " + firstname + ", lastname=" + lastname);
         roleService.createRole(firstname, "role 1");
         try {
-//            User user = new User();
-//            user.setName(firstname + " " + lastname);
-//            userFacade.create(user);
+            User user = new User();
+            user.setName(firstname + " " + lastname);
+            userFacade.create(user);
             demoPublisher.publish("Created user = " + firstname);
             messageSender.send("Created user = " + firstname);
         } catch (JMSException ex) {

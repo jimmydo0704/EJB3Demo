@@ -26,7 +26,7 @@ public class Main {
         
         UserServiceRemote userService = (UserServiceRemote) app.getUserServiceRemoteBean("UserService", false);
         System.out.printf(">>>> %s\n", userService.findUser("Dat Do"));
-        userService.createUser("Dat", "Do");
+        userService.createUser("Phung", "Nguyen");
         
         AccessRightServiceRemote accesRightService = (AccessRightServiceRemote) app.getUserServiceRemoteBean("AccessRightService", true);
         System.out.printf(">>>> %s\n", accesRightService.findAccessRight("Dat"));
