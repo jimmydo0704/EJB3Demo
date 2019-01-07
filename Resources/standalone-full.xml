@@ -172,10 +172,25 @@
                         <background-validation>false</background-validation>
                     </validation>
                 </datasource>
+                <datasource jndi-name="java:jboss/datasources/EJB3Demo_mysql" pool-name="EJB3Demo_mysql">
+                    <connection-url>jdbc:mysql://localhost:3306/EJB3Demo</connection-url>
+                    <driver-class>com.mysql.jdbc.Driver</driver-class>
+                    <driver>mysql</driver>
+                    <security>
+                        <user-name>root</user-name>
+                        <password>@a123</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"/>
+                        <background-validation>true</background-validation>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"/>
+                    </validation>
+                </datasource>
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
+                    <driver name="mysql" module="com.mysql.jdbc"/>
                 </drivers>
             </datasources>
         </subsystem>
