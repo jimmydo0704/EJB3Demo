@@ -15,7 +15,6 @@ import javax.jms.JMSException;
 import javax.jms.JMSProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
-import javax.jms.Topic;
 
 /**
  *
